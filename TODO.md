@@ -3,9 +3,8 @@
 ---
 
 ## Working Task
-| TaskName      | Description   | Finish Date |
+| TaskName      | Description   | Start Date |
 | ------------- | ------------- | ------------|
-| Add select box of VM app |   |  | 
 |   |   |   |
 
 ---
@@ -30,5 +29,5 @@
 ## Completed Task
 | TaskName      | Description   | Finish Date |
 | ------------- | ------------- | ------------|
-|   |   |             | 
+| Add select box of VM app |    | 2024/05/25 | 
 |   |   |   |
