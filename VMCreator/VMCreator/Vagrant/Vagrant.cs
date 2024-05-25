@@ -10,7 +10,7 @@ namespace VMCreator.Vagrant
     public class VagrantBoxInfo
     {
         public string Name { get; set; }
-        public string AppType { get; set; }
+        public string Provider { get; set; }
         public string Version { get; set; }
     }
 
@@ -33,7 +33,7 @@ namespace VMCreator.Vagrant
                 var work = strInfo.Split("(");
                 info.Name = work[0];
                 work = work[1].Split(",");
-                info.AppType = work[0];
+                info.Provider = work[0];
                 work = work[1].Split(")");
                 info.Version = work[0];
                 boxInfos.Add(info);

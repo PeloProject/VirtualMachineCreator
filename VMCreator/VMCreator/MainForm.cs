@@ -3,9 +3,9 @@ using VMCreator.Vagrant;
 
 namespace VMCreator
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        public MainForm()
         {
             var response = CommandExecutor.Execute("Vagrant -v");
             if( string.IsNullOrEmpty(response) )
@@ -13,11 +13,23 @@ namespace VMCreator
                 return;
             }
 
+            
+
             InitializeComponent();
 
+            // VmAppComboBox Initialize
+            VmAppComboBox.Items.Add("Hyper-V");
+            VmAppComboBox.SelectedIndex = 0;
+            IniFileReader.ReadIniFile(VmAppComboBox.Text);
+
+            // 
             var boxInfos = Vagrant.Vagrant.InitializeBoxInfo();
             foreach( var boxInfo in boxInfos )
             {
+                if(!IniFileReader.AppInfo.Provider.Equals(boxInfo.Provider))
+                {
+                    continue;
+                }
                 BoxListComboBox.Items.Add(boxInfo.Name);
             }
 

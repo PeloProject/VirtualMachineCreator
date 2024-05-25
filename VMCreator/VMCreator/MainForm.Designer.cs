@@ -1,6 +1,6 @@
 ﻿namespace VMCreator
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -33,6 +33,8 @@
             BoxListComboBox = new ComboBox();
             tabControl1 = new TabControl();
             tabPageControl = new TabPage();
+            label1 = new Label();
+            VmAppComboBox = new ComboBox();
             tabPageSettings = new TabPage();
             tabControl1.SuspendLayout();
             tabPageControl.SuspendLayout();
@@ -40,7 +42,7 @@
             // 
             // CreateButton
             // 
-            CreateButton.Location = new Point(6, 35);
+            CreateButton.Location = new Point(6, 61);
             CreateButton.Name = "CreateButton";
             CreateButton.Size = new Size(75, 23);
             CreateButton.TabIndex = 0;
@@ -61,7 +63,7 @@
             // BoxListComboBox
             // 
             BoxListComboBox.FormattingEnabled = true;
-            BoxListComboBox.Location = new Point(6, 6);
+            BoxListComboBox.Location = new Point(6, 32);
             BoxListComboBox.Name = "BoxListComboBox";
             BoxListComboBox.Size = new Size(240, 23);
             BoxListComboBox.TabIndex = 2;
@@ -81,6 +83,8 @@
             // 
             // tabPageControl
             // 
+            tabPageControl.Controls.Add(label1);
+            tabPageControl.Controls.Add(VmAppComboBox);
             tabPageControl.Controls.Add(BoxListComboBox);
             tabPageControl.Controls.Add(CreateButton);
             tabPageControl.Location = new Point(4, 24);
@@ -91,6 +95,26 @@
             tabPageControl.Text = "VM操作";
             tabPageControl.UseVisualStyleBackColor = true;
             tabPageControl.UseWaitCursor = true;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Yu Gothic UI Light", 11F);
+            label1.Location = new Point(6, 6);
+            label1.Name = "label1";
+            label1.Size = new Size(67, 20);
+            label1.TabIndex = 4;
+            label1.Text = "VM APP :";
+            label1.UseWaitCursor = true;
+            // 
+            // VmAppComboBox
+            // 
+            VmAppComboBox.FormattingEnabled = true;
+            VmAppComboBox.Location = new Point(79, 6);
+            VmAppComboBox.Name = "VmAppComboBox";
+            VmAppComboBox.Size = new Size(240, 23);
+            VmAppComboBox.TabIndex = 3;
+            VmAppComboBox.UseWaitCursor = true;
             // 
             // tabPageSettings
             // 
@@ -103,17 +127,18 @@
             tabPageSettings.UseVisualStyleBackColor = true;
             tabPageSettings.UseWaitCursor = true;
             // 
-            // Form1
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(tabControl1);
             Controls.Add(OutputTextBox);
-            Name = "Form1";
-            Text = "Form1";
+            Name = "MainForm";
+            Text = "VMCreator";
             tabControl1.ResumeLayout(false);
             tabPageControl.ResumeLayout(false);
+            tabPageControl.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -125,5 +150,7 @@
         private TabControl tabControl1;
         private TabPage tabPageControl;
         private TabPage tabPageSettings;
+        private ComboBox VmAppComboBox;
+        private Label label1;
     }
 }
