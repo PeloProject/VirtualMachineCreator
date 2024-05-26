@@ -1,3 +1,4 @@
+using VMCreator.Forms;
 using VMCreator.Utility;
 using VMCreator.Vagrant;
 
@@ -46,6 +47,10 @@ namespace VMCreator
         /// <param name="e"></param>
         private void CreateButton_Click(object sender, EventArgs e)
         {
+            var modalDialogForm = new ModalDialogForm();
+            modalDialogForm.SetMessage("Virtual Machine �̍쐬");
+            modalDialogForm.ShowDialog();
+            modalDialogForm.Dispose();
             var response = CommandExecutor.Execute("Vagrant -v");
             OutputTextBox.Text += response;
         }
