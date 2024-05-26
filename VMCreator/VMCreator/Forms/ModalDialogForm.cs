@@ -47,8 +47,8 @@ namespace VMCreator.Forms
         private List<string> VerticalCenteringMsgList(System.Windows.Forms.TextBox textbox, int msgLineCount)
         {
             const int lineSpace = 4;
-            var fontSize = MessageTextBox.Font.Size;
-            var textBoxSize = MessageTextBox.Size;
+            var fontSize = textbox.Font.Size;
+            var textBoxSize = textbox.Size;
             var showLines = (int)(textBoxSize.Height / (fontSize + lineSpace));
 
             List<string> lines = new List<string>();
