@@ -31,7 +31,7 @@ namespace VMCreator.Vagrant
                 }
                 var info = new VagrantBoxInfo();
                 var work = strInfo.Split("(");
-                info.Name = work[0];
+                info.Name = work[0].Replace(" ","");
                 work = work[1].Split(",");
                 info.Provider = work[0];
                 work = work[1].Split(")");

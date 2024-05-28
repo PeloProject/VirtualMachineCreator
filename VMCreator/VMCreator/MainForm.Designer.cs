@@ -33,6 +33,8 @@
             BoxListComboBox = new ComboBox();
             tabControl1 = new TabControl();
             tabPageControl = new TabPage();
+            InitializeButton = new Button();
+            DestroyButton = new Button();
             label1 = new Label();
             VmAppComboBox = new ComboBox();
             tabPageSettings = new TabPage();
@@ -42,7 +44,7 @@
             // 
             // CreateButton
             // 
-            CreateButton.Location = new Point(6, 61);
+            CreateButton.Location = new Point(112, 61);
             CreateButton.Name = "CreateButton";
             CreateButton.Size = new Size(75, 23);
             CreateButton.TabIndex = 0;
@@ -53,10 +55,11 @@
             // 
             // OutputTextBox
             // 
-            OutputTextBox.Location = new Point(12, 307);
+            OutputTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            OutputTextBox.Location = new Point(12, 262);
             OutputTextBox.Name = "OutputTextBox";
             OutputTextBox.ReadOnly = true;
-            OutputTextBox.Size = new Size(776, 131);
+            OutputTextBox.Size = new Size(608, 131);
             OutputTextBox.TabIndex = 1;
             OutputTextBox.Text = "";
             // 
@@ -71,18 +74,21 @@
             // 
             // tabControl1
             // 
+            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl1.Controls.Add(tabPageControl);
             tabControl1.Controls.Add(tabPageSettings);
             tabControl1.Font = new Font("Yu Gothic UI Light", 9F);
             tabControl1.Location = new Point(11, 10);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(777, 291);
+            tabControl1.Size = new Size(609, 246);
             tabControl1.TabIndex = 3;
             tabControl1.UseWaitCursor = true;
             // 
             // tabPageControl
             // 
+            tabPageControl.Controls.Add(InitializeButton);
+            tabPageControl.Controls.Add(DestroyButton);
             tabPageControl.Controls.Add(label1);
             tabPageControl.Controls.Add(VmAppComboBox);
             tabPageControl.Controls.Add(BoxListComboBox);
@@ -90,11 +96,33 @@
             tabPageControl.Location = new Point(4, 24);
             tabPageControl.Name = "tabPageControl";
             tabPageControl.Padding = new Padding(3);
-            tabPageControl.Size = new Size(769, 263);
+            tabPageControl.Size = new Size(601, 218);
             tabPageControl.TabIndex = 0;
             tabPageControl.Text = "VM操作";
             tabPageControl.UseVisualStyleBackColor = true;
             tabPageControl.UseWaitCursor = true;
+            // 
+            // InitializeButton
+            // 
+            InitializeButton.Location = new Point(9, 61);
+            InitializeButton.Name = "InitializeButton";
+            InitializeButton.Size = new Size(97, 23);
+            InitializeButton.TabIndex = 6;
+            InitializeButton.Text = "設定ファイル作成";
+            InitializeButton.UseVisualStyleBackColor = true;
+            InitializeButton.UseWaitCursor = true;
+            InitializeButton.Click += InitializeButton_Click;
+            // 
+            // DestroyButton
+            // 
+            DestroyButton.Location = new Point(193, 61);
+            DestroyButton.Name = "DestroyButton";
+            DestroyButton.Size = new Size(75, 23);
+            DestroyButton.TabIndex = 5;
+            DestroyButton.Text = "VM削除";
+            DestroyButton.UseVisualStyleBackColor = true;
+            DestroyButton.UseWaitCursor = true;
+            DestroyButton.Click += DestroyButton_Click;
             // 
             // label1
             // 
@@ -121,7 +149,7 @@
             tabPageSettings.Location = new Point(4, 24);
             tabPageSettings.Name = "tabPageSettings";
             tabPageSettings.Padding = new Padding(3);
-            tabPageSettings.Size = new Size(769, 263);
+            tabPageSettings.Size = new Size(601, 218);
             tabPageSettings.TabIndex = 1;
             tabPageSettings.Text = "設定";
             tabPageSettings.UseVisualStyleBackColor = true;
@@ -131,7 +159,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(632, 405);
             Controls.Add(tabControl1);
             Controls.Add(OutputTextBox);
             Name = "MainForm";
@@ -152,5 +180,7 @@
         private TabPage tabPageSettings;
         private ComboBox VmAppComboBox;
         private Label label1;
+        private Button DestroyButton;
+        private Button InitializeButton;
     }
 }

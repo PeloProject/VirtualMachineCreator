@@ -17,6 +17,7 @@
 | Create Vagrant File |         | A |
 | Add Vagrant File Edit Page |   | A |
 | Create Vagrant Virtual Machine |   | A |
+| Add the ability to set the box path of vagrant |   | A |
 
 ---
 

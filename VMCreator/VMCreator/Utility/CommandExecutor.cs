@@ -12,7 +12,7 @@ namespace VMCreator.Utility
 
         public CommandExecutor() { }
 
-        public static string Execute(string command)
+        public static string Execute(string command, bool createWindow = false, string workingDirectory ="")
         {
             var processStartInfo = new ProcessStartInfo();
 
@@ -22,15 +22,19 @@ namespace VMCreator.Utility
             processStartInfo.Arguments = "/c " + command;
 
             //コンソール開かない。
-            processStartInfo.CreateNoWindow = true;
+            processStartInfo.CreateNoWindow = !createWindow;
 
             //シェル機能使用しない。
             processStartInfo.UseShellExecute = false;
 
             //標準出力をリダイレクト。
             processStartInfo.RedirectStandardOutput = true;
+            processStartInfo.RedirectStandardInput = true;
+            processStartInfo.RedirectStandardError = true;
 
-            Process process = Process.Start(processStartInfo);
+            processStartInfo.WorkingDirectory = workingDirectory;
+
+            Process? process = Process.Start(processStartInfo);
 
             if(process == null)
             {
@@ -38,7 +42,8 @@ namespace VMCreator.Utility
             }
             //標準出力を全て取得。
             string res = process.StandardOutput.ReadToEnd();
-
+            res += process.StandardError.ReadToEnd();
+            
             process.WaitForExit();
             process.Close();
 
