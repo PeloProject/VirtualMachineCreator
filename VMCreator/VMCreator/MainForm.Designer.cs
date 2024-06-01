@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             CreateButton = new Button();
-            OutputTextBox = new RichTextBox();
             BoxListComboBox = new ComboBox();
             tabControl1 = new TabControl();
             tabPageControl = new TabPage();
@@ -38,11 +37,11 @@
             label1 = new Label();
             VmAppComboBox = new ComboBox();
             tabPageSettings = new TabPage();
+            label_CurrentBoxRootPath = new Label();
+            label3 = new Label();
             button_ApplyBoxRootPath = new Button();
             label2 = new Label();
             TextBox_BoxRootPath = new TextBox();
-            label3 = new Label();
-            label_CurrentBoxRootPath = new Label();
             tabControl1.SuspendLayout();
             tabPageControl.SuspendLayout();
             tabPageSettings.SuspendLayout();
@@ -58,16 +57,6 @@
             CreateButton.UseVisualStyleBackColor = true;
             CreateButton.UseWaitCursor = true;
             CreateButton.Click += CreateButton_Click;
-            // 
-            // OutputTextBox
-            // 
-            OutputTextBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            OutputTextBox.Location = new Point(12, 262);
-            OutputTextBox.Name = "OutputTextBox";
-            OutputTextBox.ReadOnly = true;
-            OutputTextBox.Size = new Size(608, 131);
-            OutputTextBox.TabIndex = 1;
-            OutputTextBox.Text = "";
             // 
             // BoxListComboBox
             // 
@@ -87,7 +76,7 @@
             tabControl1.Location = new Point(11, 10);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(609, 246);
+            tabControl1.Size = new Size(609, 383);
             tabControl1.TabIndex = 3;
             tabControl1.UseWaitCursor = true;
             // 
@@ -160,11 +149,32 @@
             tabPageSettings.Location = new Point(4, 24);
             tabPageSettings.Name = "tabPageSettings";
             tabPageSettings.Padding = new Padding(3);
-            tabPageSettings.Size = new Size(601, 218);
+            tabPageSettings.Size = new Size(601, 355);
             tabPageSettings.TabIndex = 1;
             tabPageSettings.Text = "設定";
             tabPageSettings.UseVisualStyleBackColor = true;
             tabPageSettings.UseWaitCursor = true;
+            // 
+            // label_CurrentBoxRootPath
+            // 
+            label_CurrentBoxRootPath.AutoSize = true;
+            label_CurrentBoxRootPath.Font = new Font("Yu Gothic UI Light", 11F);
+            label_CurrentBoxRootPath.Location = new Point(144, 35);
+            label_CurrentBoxRootPath.Name = "label_CurrentBoxRootPath";
+            label_CurrentBoxRootPath.Size = new Size(0, 20);
+            label_CurrentBoxRootPath.TabIndex = 4;
+            label_CurrentBoxRootPath.UseWaitCursor = true;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Yu Gothic UI Light", 11F);
+            label3.Location = new Point(2, 35);
+            label3.Name = "label3";
+            label3.Size = new Size(148, 20);
+            label3.TabIndex = 3;
+            label3.Text = "CurrentBoxRootPath：";
+            label3.UseWaitCursor = true;
             // 
             // button_ApplyBoxRootPath
             // 
@@ -196,34 +206,12 @@
             TextBox_BoxRootPath.TabIndex = 0;
             TextBox_BoxRootPath.UseWaitCursor = true;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Yu Gothic UI Light", 11F);
-            label3.Location = new Point(2, 35);
-            label3.Name = "label3";
-            label3.Size = new Size(148, 20);
-            label3.TabIndex = 3;
-            label3.Text = "CurrentBoxRootPath：";
-            label3.UseWaitCursor = true;
-            // 
-            // label_CurrentBoxRootPath
-            // 
-            label_CurrentBoxRootPath.AutoSize = true;
-            label_CurrentBoxRootPath.Font = new Font("Yu Gothic UI Light", 11F);
-            label_CurrentBoxRootPath.Location = new Point(144, 35);
-            label_CurrentBoxRootPath.Name = "label_CurrentBoxRootPath";
-            label_CurrentBoxRootPath.Size = new Size(0, 20);
-            label_CurrentBoxRootPath.TabIndex = 4;
-            label_CurrentBoxRootPath.UseWaitCursor = true;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(632, 405);
             Controls.Add(tabControl1);
-            Controls.Add(OutputTextBox);
             Name = "MainForm";
             Text = "VMCreator";
             tabControl1.ResumeLayout(false);
@@ -237,7 +225,6 @@
         #endregion
 
         private Button CreateButton;
-        private RichTextBox OutputTextBox;
         private ComboBox BoxListComboBox;
         private TabControl tabControl1;
         private TabPage tabPageControl;

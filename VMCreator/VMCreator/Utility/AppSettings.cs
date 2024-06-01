@@ -19,7 +19,7 @@ namespace VMCreator.Utility
     {
         public string Provider { get; set; } = string.Empty;
     }
-    internal class IniFileReader
+    internal class AppSettings
     {
 
         public static ApplicationIniFileInfo AppInfo = new ApplicationIniFileInfo();

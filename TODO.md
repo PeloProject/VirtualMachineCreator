@@ -32,6 +32,7 @@
 ## Completed Task
 | TaskName      | Description   | Finish Date |
 | ------------- | ------------- | ------------|
+| Implimented to Show Console. || 2024/06/01 |
 | Add the ability to set the box path of vagrant |   | 2024/06/01 |
 | Add Modal Dialog System  |    | 2024/05/26  |
 | Add select box of VM app |    | 2024/05/25  | 

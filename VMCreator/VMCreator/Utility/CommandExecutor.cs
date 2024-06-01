@@ -9,10 +9,11 @@ namespace VMCreator.Utility
 {
     public class CommandExecutor
     {
-
+        // 子プロセスが標準出力に出力したときに呼び出されるメソッド
+        static StringBuilder output = new StringBuilder();
         public CommandExecutor() { }
 
-        public static string Execute(string command, bool createWindow = false, string workingDirectory ="")
+        public static string Execute(string command, string workingDirectory ="")
         {
             output = new StringBuilder();
             var processStartInfo = new ProcessStartInfo();
@@ -23,7 +24,7 @@ namespace VMCreator.Utility
             processStartInfo.Arguments = "/c " + command;
 
             //コンソール開かない。
-            processStartInfo.CreateNoWindow = !createWindow;
+            processStartInfo.CreateNoWindow = false;
 
             //シェル機能使用しない。
             processStartInfo.UseShellExecute = false;
@@ -41,13 +42,10 @@ namespace VMCreator.Utility
             process.StartInfo = processStartInfo;
             // イベント・ハンドラ設定
             process.OutputDataReceived += OutputHandler;
+            process.ErrorDataReceived += ErrorHandler;
             process.Start();
             process.BeginOutputReadLine(); // 子プロセスの出力読み込み開始
-            //Process? process = Process.Start(processStartInfo);
-
-            //標準出力を全て取得。
-            //string res = process.StandardOutput.ReadToEnd();
-            //res += process.StandardError.ReadToEnd();
+            process.BeginErrorReadLine();
             
             process.WaitForExit();
             process.Close();
@@ -55,13 +53,35 @@ namespace VMCreator.Utility
             return output.ToString();
         }
 
-        // 子プロセスが標準出力に出力したときに呼び出されるメソッド
-        static StringBuilder output = new StringBuilder();
+        /// <summary>
+        /// コンソール出力（通常ログ）
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="args"></param>
         static void OutputHandler(object o, DataReceivedEventArgs args)
         {
+            if (args.Data == null)
+            {
+                return;
+            }
             // https://qiita.com/murasuke/items/ddfc75493e1d4749836f
             // コンソール表示に変更する
             output.AppendLine(args.Data); // 出力されたデータを保存
+            Console.WriteLine(args.Data);
+        }
+
+        /// <summary>
+        /// エラー出力の表示
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="args"></param>
+        static void ErrorHandler(object o, DataReceivedEventArgs args)
+        {
+            if (args.Data == null) 
+            {
+                return;
+            }
+            Console.WriteLine(args.Data);
         }
     }
 }
