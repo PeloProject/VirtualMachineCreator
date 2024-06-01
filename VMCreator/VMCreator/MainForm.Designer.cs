@@ -38,8 +38,14 @@
             label1 = new Label();
             VmAppComboBox = new ComboBox();
             tabPageSettings = new TabPage();
+            button_ApplyBoxRootPath = new Button();
+            label2 = new Label();
+            TextBox_BoxRootPath = new TextBox();
+            label3 = new Label();
+            label_CurrentBoxRootPath = new Label();
             tabControl1.SuspendLayout();
             tabPageControl.SuspendLayout();
+            tabPageSettings.SuspendLayout();
             SuspendLayout();
             // 
             // CreateButton
@@ -146,6 +152,11 @@
             // 
             // tabPageSettings
             // 
+            tabPageSettings.Controls.Add(label_CurrentBoxRootPath);
+            tabPageSettings.Controls.Add(label3);
+            tabPageSettings.Controls.Add(button_ApplyBoxRootPath);
+            tabPageSettings.Controls.Add(label2);
+            tabPageSettings.Controls.Add(TextBox_BoxRootPath);
             tabPageSettings.Location = new Point(4, 24);
             tabPageSettings.Name = "tabPageSettings";
             tabPageSettings.Padding = new Padding(3);
@@ -154,6 +165,57 @@
             tabPageSettings.Text = "設定";
             tabPageSettings.UseVisualStyleBackColor = true;
             tabPageSettings.UseWaitCursor = true;
+            // 
+            // button_ApplyBoxRootPath
+            // 
+            button_ApplyBoxRootPath.Location = new Point(457, 6);
+            button_ApplyBoxRootPath.Name = "button_ApplyBoxRootPath";
+            button_ApplyBoxRootPath.Size = new Size(84, 23);
+            button_ApplyBoxRootPath.TabIndex = 2;
+            button_ApplyBoxRootPath.Text = "Boxパス反映";
+            button_ApplyBoxRootPath.UseVisualStyleBackColor = true;
+            button_ApplyBoxRootPath.UseWaitCursor = true;
+            button_ApplyBoxRootPath.Click += button_ApplyBoxRootPath_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Yu Gothic UI Light", 11F);
+            label2.Location = new Point(3, 6);
+            label2.Name = "label2";
+            label2.Size = new Size(101, 20);
+            label2.TabIndex = 1;
+            label2.Text = "BoxRootPath：";
+            label2.UseWaitCursor = true;
+            // 
+            // TextBox_BoxRootPath
+            // 
+            TextBox_BoxRootPath.Location = new Point(110, 6);
+            TextBox_BoxRootPath.Name = "TextBox_BoxRootPath";
+            TextBox_BoxRootPath.Size = new Size(331, 23);
+            TextBox_BoxRootPath.TabIndex = 0;
+            TextBox_BoxRootPath.UseWaitCursor = true;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Yu Gothic UI Light", 11F);
+            label3.Location = new Point(2, 35);
+            label3.Name = "label3";
+            label3.Size = new Size(148, 20);
+            label3.TabIndex = 3;
+            label3.Text = "CurrentBoxRootPath：";
+            label3.UseWaitCursor = true;
+            // 
+            // label_CurrentBoxRootPath
+            // 
+            label_CurrentBoxRootPath.AutoSize = true;
+            label_CurrentBoxRootPath.Font = new Font("Yu Gothic UI Light", 11F);
+            label_CurrentBoxRootPath.Location = new Point(144, 35);
+            label_CurrentBoxRootPath.Name = "label_CurrentBoxRootPath";
+            label_CurrentBoxRootPath.Size = new Size(0, 20);
+            label_CurrentBoxRootPath.TabIndex = 4;
+            label_CurrentBoxRootPath.UseWaitCursor = true;
             // 
             // MainForm
             // 
@@ -167,6 +229,8 @@
             tabControl1.ResumeLayout(false);
             tabPageControl.ResumeLayout(false);
             tabPageControl.PerformLayout();
+            tabPageSettings.ResumeLayout(false);
+            tabPageSettings.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -182,5 +246,10 @@
         private Label label1;
         private Button DestroyButton;
         private Button InitializeButton;
+        private Label label2;
+        private TextBox TextBox_BoxRootPath;
+        private Button button_ApplyBoxRootPath;
+        private Label label3;
+        private Label label_CurrentBoxRootPath;
     }
 }
