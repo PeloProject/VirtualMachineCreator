@@ -24,6 +24,31 @@ namespace VMCreator
             Console.WriteLine("===== Welcome VMCreator =====");
             Console.WriteLine("=============================");
 
+
+            // ListViewコントロールのプロパティを設定
+            listViewBoxInfo.FullRowSelect = true;
+            listViewBoxInfo.GridLines = true;
+            listViewBoxInfo.Sorting = SortOrder.Ascending;
+            listViewBoxInfo.View = View.Details;
+
+            var columnHeaderName = new ColumnHeader();
+            var columnHeaderURL = new ColumnHeader();
+            columnHeaderName.Text = "Name";
+            columnHeaderURL.Text = "URL";
+            ColumnHeader[] colHeaderRegValue = { columnHeaderName, columnHeaderURL };
+            listViewBoxInfo.Columns.AddRange(colHeaderRegValue);
+
+            listViewBoxInfo.Items.Clear();
+            // ListViewコントロールにデータを追加します。
+            string[] item1 = { "リンゴ", "果物" };
+            listViewBoxInfo.Items.Add(new ListViewItem(item1));
+            string[] item2 = { "メロン", "果物" };
+            listViewBoxInfo.Items.Add(new ListViewItem(item2));
+            string[] item3 = { "ピーマン", "野菜" };
+            listViewBoxInfo.Items.Add(new ListViewItem(item3));
+
+
+
             //https://app.vagrantup.com/almalinux/boxes/9/versions/9.3.20231118/providers/hyperv/amd64/vagrant.box
             //https://app.vagrantup.com/almalinux/boxes/8/versions/8.9.20231219/providers/virtualbox/amd64/vagrant.box
             //Refresh();

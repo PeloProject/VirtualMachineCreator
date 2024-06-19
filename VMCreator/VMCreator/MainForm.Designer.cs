@@ -42,9 +42,14 @@
             button_ApplyBoxRootPath = new Button();
             label2 = new Label();
             TextBox_BoxRootPath = new TextBox();
+            tabPageBox = new TabPage();
+            listViewBoxInfo = new ListView();
+            textBox1 = new TextBox();
+            button1 = new Button();
             tabControl1.SuspendLayout();
             tabPageControl.SuspendLayout();
             tabPageSettings.SuspendLayout();
+            tabPageBox.SuspendLayout();
             SuspendLayout();
             // 
             // CreateButton
@@ -72,6 +77,7 @@
             tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl1.Controls.Add(tabPageControl);
             tabControl1.Controls.Add(tabPageSettings);
+            tabControl1.Controls.Add(tabPageBox);
             tabControl1.Font = new Font("Yu Gothic UI Light", 9F);
             tabControl1.Location = new Point(11, 10);
             tabControl1.Name = "tabControl1";
@@ -91,7 +97,7 @@
             tabPageControl.Location = new Point(4, 24);
             tabPageControl.Name = "tabPageControl";
             tabPageControl.Padding = new Padding(3);
-            tabPageControl.Size = new Size(601, 218);
+            tabPageControl.Size = new Size(601, 355);
             tabPageControl.TabIndex = 0;
             tabPageControl.Text = "VM操作";
             tabPageControl.UseVisualStyleBackColor = true;
@@ -206,6 +212,47 @@
             TextBox_BoxRootPath.TabIndex = 0;
             TextBox_BoxRootPath.UseWaitCursor = true;
             // 
+            // tabPageBox
+            // 
+            tabPageBox.Controls.Add(listViewBoxInfo);
+            tabPageBox.Controls.Add(textBox1);
+            tabPageBox.Controls.Add(button1);
+            tabPageBox.Location = new Point(4, 24);
+            tabPageBox.Name = "tabPageBox";
+            tabPageBox.Padding = new Padding(3);
+            tabPageBox.Size = new Size(601, 355);
+            tabPageBox.TabIndex = 2;
+            tabPageBox.Text = "Box";
+            tabPageBox.UseVisualStyleBackColor = true;
+            tabPageBox.UseWaitCursor = true;
+            // 
+            // listViewBoxInfo
+            // 
+            listViewBoxInfo.Location = new Point(17, 74);
+            listViewBoxInfo.Name = "listViewBoxInfo";
+            listViewBoxInfo.Size = new Size(531, 235);
+            listViewBoxInfo.TabIndex = 2;
+            listViewBoxInfo.UseCompatibleStateImageBehavior = false;
+            listViewBoxInfo.UseWaitCursor = true;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(9, 15);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 23);
+            textBox1.TabIndex = 1;
+            textBox1.UseWaitCursor = true;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(128, 8);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 0;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.UseWaitCursor = true;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -219,6 +266,8 @@
             tabPageControl.PerformLayout();
             tabPageSettings.ResumeLayout(false);
             tabPageSettings.PerformLayout();
+            tabPageBox.ResumeLayout(false);
+            tabPageBox.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -238,5 +287,9 @@
         private Button button_ApplyBoxRootPath;
         private Label label3;
         private Label label_CurrentBoxRootPath;
+        private TabPage tabPageBox;
+        private TextBox textBox1;
+        private Button button1;
+        private ListView listViewBoxInfo;
     }
 }
