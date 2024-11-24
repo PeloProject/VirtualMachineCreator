@@ -54,14 +54,13 @@
             // 
             // MessageTextBox
             // 
-            MessageTextBox.BackColor = Color.White;
+            MessageTextBox.BackColor = SystemColors.Control;
             MessageTextBox.BorderStyle = BorderStyle.None;
             MessageTextBox.Font = new Font("Yu Gothic UI", 11F);
             MessageTextBox.Location = new Point(12, 12);
             MessageTextBox.Multiline = true;
             MessageTextBox.Name = "MessageTextBox";
             MessageTextBox.ReadOnly = true;
-            MessageTextBox.ScrollBars = ScrollBars.Vertical;
             MessageTextBox.Size = new Size(516, 239);
             MessageTextBox.TabIndex = 1;
             MessageTextBox.TextAlign = HorizontalAlignment.Center;
@@ -73,6 +72,7 @@
             ControlBox = false;
             Controls.Add(MessageTextBox);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             Name = "ModalDialogForm";
             ShowIcon = false;

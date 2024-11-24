@@ -4,19 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VMCreator.Utility;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace VMCreator.Vagrant
 {
     public class VagrantBoxInfo
     {
-        public string Name { get; set; }
-        public string Provider { get; set; }
-        public string Version { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Provider { get; set; } = string.Empty;
+        public string Version { get; set; } = string.Empty;
     }
 
     public class Vagrant
     {
-        public static List<VagrantBoxInfo> InitializeBoxInfo()
+        public static List<VagrantBoxInfo> GetBoxInfo()
         {
             var boxInfos = new List<VagrantBoxInfo>();
 
@@ -39,6 +40,28 @@ namespace VMCreator.Vagrant
                 boxInfos.Add(info);
             }
             return boxInfos;
+        }
+
+        public static void GetVM()
+        {
+            var vmStatuslist = CommandExecutor.Execute("Vagrant global-status");
+            var baseArray = vmStatuslist.Split("\r\n");
+            
+            for ( int startIndex = 2; startIndex < baseArray.Count(); startIndex++)
+            {
+                var strInfo = baseArray[startIndex];
+                strInfo = strInfo.Replace("  ", " ");
+                if(strInfo.StartsWith(" ") )
+                {
+                    break;
+                }
+                var infoArray = strInfo.Split(" ");
+            }
+        }
+
+        public static void DestoryVM(string vmId)
+        {
+            CommandExecutor.Execute($"Vagrant destroy -f {vmId}");
         }
     }
 }

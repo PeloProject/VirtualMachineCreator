@@ -42,14 +42,20 @@
             button_ApplyBoxRootPath = new Button();
             label2 = new Label();
             TextBox_BoxRootPath = new TextBox();
-            tabPageBox = new TabPage();
+            tabPageCreateBox = new TabPage();
+            labelSelectedBoxName = new Label();
+            labelBaseBoxName = new Label();
+            labelCreateBoxName = new Label();
             listViewBoxInfo = new ListView();
-            textBox1 = new TextBox();
-            button1 = new Button();
+            textBoxCreateBoxName = new TextBox();
+            buttonCreateBox = new Button();
+            tabPageBoxManager = new TabPage();
+            listViewHaveBoxInfos = new ListView();
             tabControl1.SuspendLayout();
             tabPageControl.SuspendLayout();
             tabPageSettings.SuspendLayout();
-            tabPageBox.SuspendLayout();
+            tabPageCreateBox.SuspendLayout();
+            tabPageBoxManager.SuspendLayout();
             SuspendLayout();
             // 
             // CreateButton
@@ -77,13 +83,14 @@
             tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabControl1.Controls.Add(tabPageControl);
             tabControl1.Controls.Add(tabPageSettings);
-            tabControl1.Controls.Add(tabPageBox);
+            tabControl1.Controls.Add(tabPageCreateBox);
+            tabControl1.Controls.Add(tabPageBoxManager);
             tabControl1.Font = new Font("Yu Gothic UI Light", 9F);
             tabControl1.Location = new Point(11, 10);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(609, 383);
-            tabControl1.TabIndex = 3;
+            tabControl1.TabIndex = 4;
             tabControl1.UseWaitCursor = true;
             // 
             // tabPageControl
@@ -144,6 +151,7 @@
             VmAppComboBox.Size = new Size(240, 23);
             VmAppComboBox.TabIndex = 3;
             VmAppComboBox.UseWaitCursor = true;
+            VmAppComboBox.SelectedIndexChanged += VmAppComboBox_SelectedIndexChanged;
             // 
             // tabPageSettings
             // 
@@ -212,46 +220,104 @@
             TextBox_BoxRootPath.TabIndex = 0;
             TextBox_BoxRootPath.UseWaitCursor = true;
             // 
-            // tabPageBox
+            // tabPageCreateBox
             // 
-            tabPageBox.Controls.Add(listViewBoxInfo);
-            tabPageBox.Controls.Add(textBox1);
-            tabPageBox.Controls.Add(button1);
-            tabPageBox.Location = new Point(4, 24);
-            tabPageBox.Name = "tabPageBox";
-            tabPageBox.Padding = new Padding(3);
-            tabPageBox.Size = new Size(601, 355);
-            tabPageBox.TabIndex = 2;
-            tabPageBox.Text = "Box";
-            tabPageBox.UseVisualStyleBackColor = true;
-            tabPageBox.UseWaitCursor = true;
+            tabPageCreateBox.Controls.Add(labelSelectedBoxName);
+            tabPageCreateBox.Controls.Add(labelBaseBoxName);
+            tabPageCreateBox.Controls.Add(labelCreateBoxName);
+            tabPageCreateBox.Controls.Add(listViewBoxInfo);
+            tabPageCreateBox.Controls.Add(textBoxCreateBoxName);
+            tabPageCreateBox.Controls.Add(buttonCreateBox);
+            tabPageCreateBox.Location = new Point(4, 24);
+            tabPageCreateBox.Name = "tabPageCreateBox";
+            tabPageCreateBox.Padding = new Padding(3);
+            tabPageCreateBox.Size = new Size(601, 355);
+            tabPageCreateBox.TabIndex = 2;
+            tabPageCreateBox.Text = "Box作成";
+            tabPageCreateBox.UseVisualStyleBackColor = true;
+            tabPageCreateBox.UseWaitCursor = true;
+            // 
+            // labelSelectedBoxName
+            // 
+            labelSelectedBoxName.AutoSize = true;
+            labelSelectedBoxName.Font = new Font("Yu Gothic UI Light", 11F);
+            labelSelectedBoxName.Location = new Point(91, 44);
+            labelSelectedBoxName.Name = "labelSelectedBoxName";
+            labelSelectedBoxName.Size = new Size(44, 20);
+            labelSelectedBoxName.TabIndex = 5;
+            labelSelectedBoxName.Text = "None";
+            labelSelectedBoxName.UseWaitCursor = true;
+            // 
+            // labelBaseBoxName
+            // 
+            labelBaseBoxName.AutoSize = true;
+            labelBaseBoxName.Font = new Font("Yu Gothic UI Light", 11F);
+            labelBaseBoxName.Location = new Point(6, 44);
+            labelBaseBoxName.Name = "labelBaseBoxName";
+            labelBaseBoxName.Size = new Size(91, 20);
+            labelBaseBoxName.TabIndex = 4;
+            labelBaseBoxName.Text = "ベースのBox：";
+            labelBaseBoxName.UseWaitCursor = true;
+            // 
+            // labelCreateBoxName
+            // 
+            labelCreateBoxName.AutoSize = true;
+            labelCreateBoxName.Font = new Font("Yu Gothic UI Light", 11F);
+            labelCreateBoxName.Location = new Point(3, 15);
+            labelCreateBoxName.Name = "labelCreateBoxName";
+            labelCreateBoxName.Size = new Size(114, 20);
+            labelCreateBoxName.TabIndex = 3;
+            labelCreateBoxName.Text = "作成するBox名：";
+            labelCreateBoxName.UseWaitCursor = true;
             // 
             // listViewBoxInfo
             // 
-            listViewBoxInfo.Location = new Point(17, 74);
+            listViewBoxInfo.Location = new Point(17, 95);
             listViewBoxInfo.Name = "listViewBoxInfo";
-            listViewBoxInfo.Size = new Size(531, 235);
+            listViewBoxInfo.Size = new Size(564, 254);
             listViewBoxInfo.TabIndex = 2;
             listViewBoxInfo.UseCompatibleStateImageBehavior = false;
             listViewBoxInfo.UseWaitCursor = true;
+            listViewBoxInfo.SelectedIndexChanged += listViewBoxInfo_SelectedIndexChanged;
             // 
-            // textBox1
+            // textBoxCreateBoxName
             // 
-            textBox1.Location = new Point(9, 15);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 23);
-            textBox1.TabIndex = 1;
-            textBox1.UseWaitCursor = true;
+            textBoxCreateBoxName.Location = new Point(123, 15);
+            textBoxCreateBoxName.Name = "textBoxCreateBoxName";
+            textBoxCreateBoxName.Size = new Size(425, 23);
+            textBoxCreateBoxName.TabIndex = 1;
+            textBoxCreateBoxName.UseWaitCursor = true;
             // 
-            // button1
+            // buttonCreateBox
             // 
-            button1.Location = new Point(128, 8);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.UseWaitCursor = true;
+            buttonCreateBox.Location = new Point(240, 66);
+            buttonCreateBox.Name = "buttonCreateBox";
+            buttonCreateBox.Size = new Size(75, 23);
+            buttonCreateBox.TabIndex = 0;
+            buttonCreateBox.Text = "Boxの作成";
+            buttonCreateBox.UseVisualStyleBackColor = true;
+            buttonCreateBox.UseWaitCursor = true;
+            buttonCreateBox.Click += buttonCreateBox_Click;
+            // 
+            // tabPageBoxManager
+            // 
+            tabPageBoxManager.Controls.Add(listViewHaveBoxInfos);
+            tabPageBoxManager.Location = new Point(4, 24);
+            tabPageBoxManager.Name = "tabPageBoxManager";
+            tabPageBoxManager.Size = new Size(601, 355);
+            tabPageBoxManager.TabIndex = 3;
+            tabPageBoxManager.Text = "Box管理";
+            tabPageBoxManager.UseVisualStyleBackColor = true;
+            tabPageBoxManager.UseWaitCursor = true;
+            // 
+            // listViewHaveBoxInfos
+            // 
+            listViewHaveBoxInfos.Location = new Point(15, 85);
+            listViewHaveBoxInfos.Name = "listViewHaveBoxInfos";
+            listViewHaveBoxInfos.Size = new Size(564, 254);
+            listViewHaveBoxInfos.TabIndex = 3;
+            listViewHaveBoxInfos.UseCompatibleStateImageBehavior = false;
+            listViewHaveBoxInfos.UseWaitCursor = true;
             // 
             // MainForm
             // 
@@ -266,8 +332,9 @@
             tabPageControl.PerformLayout();
             tabPageSettings.ResumeLayout(false);
             tabPageSettings.PerformLayout();
-            tabPageBox.ResumeLayout(false);
-            tabPageBox.PerformLayout();
+            tabPageCreateBox.ResumeLayout(false);
+            tabPageCreateBox.PerformLayout();
+            tabPageBoxManager.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -287,9 +354,14 @@
         private Button button_ApplyBoxRootPath;
         private Label label3;
         private Label label_CurrentBoxRootPath;
-        private TabPage tabPageBox;
-        private TextBox textBox1;
-        private Button button1;
+        private TabPage tabPageCreateBox;
+        private TextBox textBoxCreateBoxName;
+        private Button buttonCreateBox;
         private ListView listViewBoxInfo;
+        private TabPage tabPageBoxManager;
+        private Label labelCreateBoxName;
+        private Label labelSelectedBoxName;
+        private Label labelBaseBoxName;
+        private ListView listViewHaveBoxInfos;
     }
 }
