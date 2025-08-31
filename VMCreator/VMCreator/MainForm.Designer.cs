@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             CreateButton = new Button();
             BoxListComboBox = new ComboBox();
             tabControl1 = new TabControl();
@@ -51,11 +52,14 @@
             buttonCreateBox = new Button();
             tabPageBoxManager = new TabPage();
             listViewHaveBoxInfos = new ListView();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            テストToolStripMenuItem = new ToolStripMenuItem();
             tabControl1.SuspendLayout();
             tabPageControl.SuspendLayout();
             tabPageSettings.SuspendLayout();
             tabPageCreateBox.SuspendLayout();
             tabPageBoxManager.SuspendLayout();
+            contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // CreateButton
@@ -241,7 +245,7 @@
             // 
             labelSelectedBoxName.AutoSize = true;
             labelSelectedBoxName.Font = new Font("Yu Gothic UI Light", 11F);
-            labelSelectedBoxName.Location = new Point(91, 44);
+            labelSelectedBoxName.Location = new Point(109, 44);
             labelSelectedBoxName.Name = "labelSelectedBoxName";
             labelSelectedBoxName.Size = new Size(44, 20);
             labelSelectedBoxName.TabIndex = 5;
@@ -254,9 +258,9 @@
             labelBaseBoxName.Font = new Font("Yu Gothic UI Light", 11F);
             labelBaseBoxName.Location = new Point(6, 44);
             labelBaseBoxName.Name = "labelBaseBoxName";
-            labelBaseBoxName.Size = new Size(91, 20);
+            labelBaseBoxName.Size = new Size(106, 20);
             labelBaseBoxName.TabIndex = 4;
-            labelBaseBoxName.Text = "ベースのBox：";
+            labelBaseBoxName.Text = "ベースのBox名：";
             labelBaseBoxName.UseWaitCursor = true;
             // 
             // labelCreateBoxName
@@ -272,6 +276,7 @@
             // 
             // listViewBoxInfo
             // 
+            listViewBoxInfo.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             listViewBoxInfo.Location = new Point(17, 95);
             listViewBoxInfo.Name = "listViewBoxInfo";
             listViewBoxInfo.Size = new Size(564, 254);
@@ -312,12 +317,28 @@
             // 
             // listViewHaveBoxInfos
             // 
+            listViewHaveBoxInfos.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            listViewHaveBoxInfos.ContextMenuStrip = contextMenuStrip1;
             listViewHaveBoxInfos.Location = new Point(15, 85);
             listViewHaveBoxInfos.Name = "listViewHaveBoxInfos";
             listViewHaveBoxInfos.Size = new Size(564, 254);
             listViewHaveBoxInfos.TabIndex = 3;
             listViewHaveBoxInfos.UseCompatibleStateImageBehavior = false;
             listViewHaveBoxInfos.UseWaitCursor = true;
+            listViewHaveBoxInfos.MouseClick += listViewHaveBoxInfos_MouseClick;
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { テストToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(101, 26);
+            // 
+            // テストToolStripMenuItem
+            // 
+            テストToolStripMenuItem.Name = "テストToolStripMenuItem";
+            テストToolStripMenuItem.Size = new Size(100, 22);
+            テストToolStripMenuItem.Text = "テスト";
+            テストToolStripMenuItem.Click += テストToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -335,6 +356,7 @@
             tabPageCreateBox.ResumeLayout(false);
             tabPageCreateBox.PerformLayout();
             tabPageBoxManager.ResumeLayout(false);
+            contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -363,5 +385,7 @@
         private Label labelSelectedBoxName;
         private Label labelBaseBoxName;
         private ListView listViewHaveBoxInfos;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem テストToolStripMenuItem;
     }
 }

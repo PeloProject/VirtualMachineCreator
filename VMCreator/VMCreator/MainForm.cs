@@ -7,6 +7,7 @@ namespace VMCreator
 {
     public partial class MainForm : Form
     {
+        bool IsInitializeFinished = false;
         public MainForm()
         {
             if (!IsInstallVagrant())
@@ -17,13 +18,15 @@ namespace VMCreator
             InitializeComponent();
             InitializeProviderList();
             LoadAppSettings(VmAppComboBox.Text);
-            InitializeBoxList();
             InitializeVagrantRootPath();
+            InitializeBoxList();
             InitializeDiscoverBoxInfoList();
             Console.WriteLine("\nSeccessed Initialize!!\n");
             Console.WriteLine("=============================");
             Console.WriteLine("===== Welcome VMCreator =====");
             Console.WriteLine("=============================");
+
+            IsInitializeFinished = true;
 
             //Refresh();
         }
@@ -47,9 +50,10 @@ namespace VMCreator
         /// </summary>
         private void ReloadAllProperty()
         {
+            if (!IsInitializeFinished) { return; }
             LoadAppSettings(VmAppComboBox.Text);
-            InitializeBoxList();
             InitializeVagrantRootPath();
+            InitializeBoxList();
             InitializeDiscoverBoxInfoList();
         }
 
@@ -61,20 +65,22 @@ namespace VMCreator
             listViewBoxInfo.Sorting = SortOrder.Ascending;
             listViewBoxInfo.View = View.Details;
 
+            listViewBoxInfo.Columns.Clear();
             var columnHeaderName = new ColumnHeader();
             var columnHeaderURL = new ColumnHeader();
             columnHeaderName.Text = "Name";
-            columnHeaderURL.Text = "URL";
+            columnHeaderName.Width = 300;
+            columnHeaderURL.Text = "Version";
             columnHeaderURL.Width = 300;
             ColumnHeader[] colHeaderRegValue = { columnHeaderName, columnHeaderURL };
             listViewBoxInfo.Columns.AddRange(colHeaderRegValue);
 
             listViewBoxInfo.Items.Clear();
             // ListViewコントロールにデータを追加します。
-            string[] item1 = { "almalinux/9", "--box-version 9.4.20240805" };
+            string[] item1 = { "almalinux/9", "9.5.20241203" };
             listViewBoxInfo.Items.Add(new ListViewItem(item1));
-            string[] item2 = { "almalinux/8", "--box-version 8.10.20240821" };
-            listViewBoxInfo.Items.Add(new ListViewItem(item2));
+            //string[] item2 = { "almalinux/8", "8.10.20240821" };
+            //listViewBoxInfo.Items.Add(new ListViewItem(item2));
         }
 
         /// <summary>
@@ -102,7 +108,7 @@ namespace VMCreator
         private void InitializeBoxList()
         {
             Console.WriteLine("\n===== Initalize Box list =====");
-            var boxInfos = Vagrant.Vagrant.GetBoxInfo();
+            var boxInfos = Vagrant.VagrantBox.GetBoxInfo();
 
             // ListViewコントロールのプロパティを設定
             listViewHaveBoxInfos.FullRowSelect = true;
@@ -112,11 +118,14 @@ namespace VMCreator
 
             var columnHeaderName = new ColumnHeader();
             var columnHeaderURL = new ColumnHeader();
+            var columnHeaderVagrantfilePath = new ColumnHeader();
             columnHeaderName.Text = "Name";
             columnHeaderName.Width = 300;
             columnHeaderURL.Text = "Version";
             columnHeaderURL.Width = 300;
-            ColumnHeader[] colHeaderRegValue = { columnHeaderName, columnHeaderURL };
+            columnHeaderVagrantfilePath.Text = "VagrantfilePath";
+            columnHeaderVagrantfilePath.Width = 300;
+            ColumnHeader[] colHeaderRegValue = { columnHeaderName, columnHeaderURL, columnHeaderVagrantfilePath };
             listViewHaveBoxInfos.Columns.AddRange(colHeaderRegValue);
             listViewHaveBoxInfos.Items.Clear();
 
@@ -131,7 +140,7 @@ namespace VMCreator
                 BoxListComboBox.Items.Add(boxInfo.Name);
 
                 // 所持リスト設定
-                string[] item1 = { boxInfo.Name, boxInfo.Version };
+                string[] item1 = { boxInfo.Name, boxInfo.Version, boxInfo.VagrantfilePath };
                 listViewHaveBoxInfos.Items.Add(new ListViewItem(item1));
 
             }
@@ -148,21 +157,8 @@ namespace VMCreator
         {
             Console.WriteLine("\n===== Initalize Vagrant Box Root Path =====");
             Console.WriteLine("Check Environment VAGRANT_HOME");
-            var command = $"echo %VAGRANT_HOME%";
-            var response = CommandExecutor.Execute(command);
-            if (response.Equals("%VAGRANT_HOME%"))
-            {
-                TextBox_BoxRootPath.Text = response;
-            }
-            else
-            {
-                Console.WriteLine("Not Exists Environment VAGRANT_HOME");
-                Console.WriteLine("Check Environment UserName");
-                command = $"echo %username%";
-                response = CommandExecutor.Execute(command);
-                response = response.Replace("\r\n", "");
-                TextBox_BoxRootPath.Text = $"C:\\Users\\{response}\\.vagrant.d";
-            }
+
+            TextBox_BoxRootPath.Text = VagrantBox.InitializeBoxWorkingDirectory();
             label_CurrentBoxRootPath.Text = TextBox_BoxRootPath.Text;
             Console.WriteLine($"Vagrant RootPath : {label_CurrentBoxRootPath.Text}");
         }
@@ -178,12 +174,11 @@ namespace VMCreator
             Console.WriteLine("===== Create Vagrant Start =====");
             var provider = AppSettings.AppInfo.Provider;
             var command = $"Vagrant up --provider={provider}\n";
-            // VM作成はVagrantfileがあるフォルダで実行する必要がある為pathを生成
-            var boxFolder = $"{label_CurrentBoxRootPath.Text}\\boxes\\{BoxListComboBox.SelectedItem}\\0\\{provider}";
 
             Console.WriteLine($"ExecuteCommand : {command}");
 
-            CommandExecutor.Execute(command, boxFolder);
+            // VM作成はVagrantfileがあるフォルダで実行する必要がある為pathを生成
+            CommandExecutor.Execute(command, GetBoxWorkingDirectory(provider));
 
             Console.WriteLine("===== Create Vagrant Finished =====");
         }
@@ -196,18 +191,14 @@ namespace VMCreator
         private void DestroyButton_Click(object sender, EventArgs e)
         {
             Console.WriteLine("===== Destory Vagrant Start =====");
-            var modalDialogForm = new ModalDialogForm();
-            modalDialogForm.SetMessage("Virtual Machine の作成");
-            modalDialogForm.ShowDialog();
-            modalDialogForm.Dispose();
 
             var provider = AppSettings.AppInfo.Provider;
+            var command = $"Vagrant destroy -f";
+
+            ShowModalDialog("Virtual Machine を削除します。");
 
             // VM作成はVagrantfileがあるフォルダで実行する必要がある為pathを生成
-            var boxFolder = $"{label_CurrentBoxRootPath.Text}\\boxes\\{BoxListComboBox.SelectedItem}\\0\\{provider}";
-
-            var command = $"Vagrant destroy -f";
-            CommandExecutor.Execute(command, boxFolder);
+            //CommandExecutor.Execute(command, GetBoxWorkingDirectory(provider));
 
             Console.WriteLine("===== Destory Vagrant Finished =====");
         }
@@ -222,7 +213,7 @@ namespace VMCreator
             Console.WriteLine("===== Initialize Vagrant Start =====");
 
             var command = $"Vagrant init {BoxListComboBox.Text}";
-            var response = CommandExecutor.Execute(command);
+            var response = CommandExecutor.Execute(command, GetBoxRootPath());
 
             Console.WriteLine("===== Initialize Vagrant Finished =====");
         }
@@ -239,30 +230,87 @@ namespace VMCreator
             label_CurrentBoxRootPath.Text = TextBox_BoxRootPath.Text;
         }
 
+        /// <summary>
+        /// ボックスリスト選択
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listViewBoxInfo_SelectedIndexChanged(object sender, EventArgs e)
         {
             ListView listView = (ListView)sender;
             var item = listView.SelectedItems;
             if (0 < item.Count)
             {
-                var boxInfo = item[0].SubItems[1];
+                var boxInfo = item[0].SubItems[0];
                 labelSelectedBoxName.Text = boxInfo.Text;
             }
         }
 
+        /// <summary>
+        /// ボックスの作成ボタンが押されたとき
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonCreateBox_Click(object sender, EventArgs e)
         {
-            Console.WriteLine("===== Vagrant Box Add Start =====");
+            //if (string.IsNullOrEmpty(textBoxCreateBoxName.Text))
+            //{
+            //    ShowModalDialog("作成するBox名が入力されていません。");
+            //    return;
+            //}
 
-            var command = $"Vagrant box add {BoxListComboBox.Text}";
-            var response = CommandExecutor.Execute(command);
+            Console.WriteLine("===== Vagrant Box Add Start =====");
+            var baseBoxName = listViewBoxInfo.SelectedItems[0].SubItems[0].Text;
+            var baseBoxVersion = $"--box-version {listViewBoxInfo.SelectedItems[0].SubItems[1].Text}";
+            var provider = $"--provider {AppSettings.AppInfo.Provider}";
+
+            var command = $"Vagrant box add {baseBoxName} {baseBoxVersion} {provider}";
+
+            Console.WriteLine($"ExecuteCommand : {command}");
+            var response = CommandExecutor.Execute(command, GetBoxWorkingDirectory());
 
             Console.WriteLine("===== Vagrant Box Add Finished =====");
+
+            ShowModalDialog($"Box:({baseBoxName} {baseBoxVersion})が作成されました。");
         }
 
         private void VmAppComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ReloadAllProperty();
+        }
+
+        private string GetBoxRootPath()
+        {
+            return label_CurrentBoxRootPath.Text;
+        }
+        private string GetBoxWorkingDirectory()
+        {
+            var provider = AppSettings.AppInfo.Provider;
+            return GetBoxWorkingDirectory(provider);
+        }
+        private string GetBoxWorkingDirectory(string provider)
+        {
+            return $"{label_CurrentBoxRootPath.Text}\\boxes\\{BoxListComboBox.SelectedItem}\\0\\{provider}";
+        }
+
+        private void ShowModalDialog(string message)
+        {
+            var modalDialogForm = new ModalDialogForm();
+            modalDialogForm.SetMessage(message);
+            modalDialogForm.ShowDialog();
+            modalDialogForm.Dispose();
+        }
+
+        private void listViewHaveBoxInfos_MouseClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void テストToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var item = (ToolStripMenuItem)sender;
+            string message = item.Text + " が押されました";
+            MessageBox.Show(this, message, "メニュー", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
