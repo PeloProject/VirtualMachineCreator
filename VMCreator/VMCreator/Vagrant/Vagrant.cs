@@ -19,7 +19,7 @@ namespace VMCreator.Vagrant
         public string VagrantfilePath { get; set; } = string.Empty;
     }
 
-    public class VagrantBox
+    public class Vagrant
     {
         public static string BoxBaseDirectory {get; set;} = string.Empty;
 
@@ -106,26 +106,87 @@ namespace VMCreator.Vagrant
         /// <summary>
         /// VM情報の取得
         /// </summary>
-        public static void GetVM()
+        public static List<List<string>> GetVMInfo()
         {
-            var vmStatuslist = CommandExecutor.Execute("Vagrant global-status");
+            var vmStatuslist = CommandExecutor.Execute("Vagrant global-status --prune");
             var baseArray = vmStatuslist.Split("\r\n");
-            
+            var resultList = new List<List<string>>();
+
             for ( int startIndex = 2; startIndex < baseArray.Count(); startIndex++)
             {
                 var strInfo = baseArray[startIndex];
-                strInfo = strInfo.Replace("  ", " ");
-                if(strInfo.StartsWith(" ") )
+
+                // 複数の空行を1つに変更
+                while (strInfo.Contains("  "))
+                {
+                    strInfo = strInfo.Replace("  ", " ");
+                }
+                
+                if (strInfo.StartsWith(" ") )
                 {
                     break;
                 }
                 var infoArray = strInfo.Split(" ");
+                resultList.Add(infoArray.ToList());
             }
+
+            return resultList;
         }
 
+        /// <summary>
+        /// VMの起動
+        /// </summary>
+        /// <param name="vmId"></param>
+        public static void StartVM(string vmId)
+        {
+            Console.WriteLine($"Start VM {vmId}");
+            CommandExecutor.Execute($"Vagrant up {vmId}");
+        }
+
+        /// <summary>
+        /// VMの削除
+        /// </summary>
+        /// <param name="vmId"></param>
         public static void DestoryVM(string vmId)
         {
+            Console.WriteLine($"Destory VM {vmId}");
             CommandExecutor.Execute($"Vagrant destroy -f {vmId}");
+        }
+
+        /// <summary>
+        /// VMの再起動
+        /// </summary>
+        /// <param name="vmId"></param>
+        public static void ReloadVM(string vmId)
+        {
+            Console.WriteLine($"Reload VM {vmId}");
+            CommandExecutor.Execute($"Vagrant reload {vmId}");
+        }
+
+        /// <summary>
+        /// VMの停止
+        /// </summary>
+        /// <param name="vmId"></param>
+        public static void HaltVM(string vmId)
+        {
+            Console.WriteLine($"Halt VM {vmId}");
+            CommandExecutor.Execute($"Vagrant halt {vmId}");
+        }
+
+        /// <summary>
+        /// VMの再開
+        /// </summary>
+        /// <param name="vmId"></param>
+        public static void ResumeVM(string vmId)
+        {
+            Console.WriteLine($"Resume VM {vmId}");
+            CommandExecutor.Execute($"Vagrant resume {vmId}");
+        }
+
+        public static void SuspendVM(string vmId)
+        {
+            Console.WriteLine($"Suspend VM {vmId}");
+            CommandExecutor.Execute($"Vagrant suspend {vmId}");
         }
     }
 }

@@ -54,12 +54,15 @@
             listViewHaveBoxInfos = new ListView();
             contextMenuStrip1 = new ContextMenuStrip(components);
             テストToolStripMenuItem = new ToolStripMenuItem();
+            tabPageVMInfo = new TabPage();
+            listViewVmInfo = new ListView();
             tabControl1.SuspendLayout();
             tabPageControl.SuspendLayout();
             tabPageSettings.SuspendLayout();
             tabPageCreateBox.SuspendLayout();
             tabPageBoxManager.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
+            tabPageVMInfo.SuspendLayout();
             SuspendLayout();
             // 
             // CreateButton
@@ -85,6 +88,7 @@
             // tabControl1
             // 
             tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            tabControl1.Controls.Add(tabPageVMInfo);
             tabControl1.Controls.Add(tabPageControl);
             tabControl1.Controls.Add(tabPageSettings);
             tabControl1.Controls.Add(tabPageCreateBox);
@@ -340,6 +344,27 @@
             テストToolStripMenuItem.Text = "テスト";
             テストToolStripMenuItem.Click += テストToolStripMenuItem_Click;
             // 
+            // tabPageVMInfo
+            // 
+            tabPageVMInfo.Controls.Add(listViewVmInfo);
+            tabPageVMInfo.Location = new Point(4, 24);
+            tabPageVMInfo.Name = "tabPageVMInfo";
+            tabPageVMInfo.Padding = new Padding(3);
+            tabPageVMInfo.Size = new Size(601, 355);
+            tabPageVMInfo.TabIndex = 4;
+            tabPageVMInfo.Text = "VM情報";
+            tabPageVMInfo.UseVisualStyleBackColor = true;
+            tabPageVMInfo.UseWaitCursor = true;
+            // 
+            // listViewVmInfo
+            // 
+            listViewVmInfo.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            listViewVmInfo.Location = new Point(6, 6);
+            listViewVmInfo.Name = "listViewVmInfo";
+            listViewVmInfo.Size = new Size(589, 343);
+            listViewVmInfo.TabIndex = 0;
+            listViewVmInfo.UseCompatibleStateImageBehavior = false;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -357,6 +382,7 @@
             tabPageCreateBox.PerformLayout();
             tabPageBoxManager.ResumeLayout(false);
             contextMenuStrip1.ResumeLayout(false);
+            tabPageVMInfo.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -387,5 +413,7 @@
         private ListView listViewHaveBoxInfos;
         private ContextMenuStrip contextMenuStrip1;
         private ToolStripMenuItem テストToolStripMenuItem;
+        private TabPage tabPageVMInfo;
+        private ListView listViewVmInfo;
     }
 }

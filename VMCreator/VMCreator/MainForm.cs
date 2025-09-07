@@ -2,6 +2,7 @@ using Microsoft.VisualBasic.ApplicationServices;
 using VMCreator.Forms;
 using VMCreator.Utility;
 using VMCreator.Vagrant;
+using VMCreator.Views;
 
 namespace VMCreator
 {
@@ -19,7 +20,8 @@ namespace VMCreator
             InitializeProviderList();
             LoadAppSettings(VmAppComboBox.Text);
             InitializeVagrantRootPath();
-            InitializeBoxList();
+            //InitializeBoxList();
+            BoxInfoView boxInfoView = new BoxInfoView(listViewHaveBoxInfos, BoxListComboBox);
             InitializeDiscoverBoxInfoList();
             Console.WriteLine("\nSeccessed Initialize!!\n");
             Console.WriteLine("=============================");
@@ -27,6 +29,9 @@ namespace VMCreator
             Console.WriteLine("=============================");
 
             IsInitializeFinished = true;
+
+            VmInfoView test = new VmInfoView(listViewVmInfo);
+
 
             //Refresh();
         }
@@ -53,7 +58,7 @@ namespace VMCreator
             if (!IsInitializeFinished) { return; }
             LoadAppSettings(VmAppComboBox.Text);
             InitializeVagrantRootPath();
-            InitializeBoxList();
+            //InitializeBoxList();
             InitializeDiscoverBoxInfoList();
         }
 
@@ -108,7 +113,7 @@ namespace VMCreator
         private void InitializeBoxList()
         {
             Console.WriteLine("\n===== Initalize Box list =====");
-            var boxInfos = Vagrant.VagrantBox.GetBoxInfo();
+            var boxInfos = Vagrant.Vagrant.GetBoxInfo();
 
             // ListViewコントロールのプロパティを設定
             listViewHaveBoxInfos.FullRowSelect = true;
@@ -158,7 +163,7 @@ namespace VMCreator
             Console.WriteLine("\n===== Initalize Vagrant Box Root Path =====");
             Console.WriteLine("Check Environment VAGRANT_HOME");
 
-            TextBox_BoxRootPath.Text = VagrantBox.InitializeBoxWorkingDirectory();
+            TextBox_BoxRootPath.Text = Vagrant.Vagrant.InitializeBoxWorkingDirectory();
             label_CurrentBoxRootPath.Text = TextBox_BoxRootPath.Text;
             Console.WriteLine($"Vagrant RootPath : {label_CurrentBoxRootPath.Text}");
         }
